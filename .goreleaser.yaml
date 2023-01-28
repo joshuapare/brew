@@ -75,13 +75,7 @@ brews:
       name: homebrew-mltools
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     url_template: "https://github.com/sbhrule15/brew/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-
-    # Allows you to set a custom download strategy. Note that you'll need
-    # to implement the strategy and add it to your tap repository.
-    # Example: https://docs.brew.sh/Formula-Cookbook#specifying-the-download-strategy-explicitly
-    # Default is empty.
-    download_strategy: CurlDownloadStrategy
-
+    
     # Allows you to add a custom require_relative at the top of the formula
     # template.
     # Default is empty
