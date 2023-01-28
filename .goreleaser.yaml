@@ -72,7 +72,7 @@ brews:
     - mldev
     tap:
       owner: sbhrule15
-      name: brew
+      name: homebrew-mltools
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     url_template: "https://github.com/sbhrule15/brew/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
 
