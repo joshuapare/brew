@@ -75,11 +75,6 @@ brews:
       name: homebrew-mltools
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     url_template: "https://github.com/sbhrule15/brew/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-    
-    # Allows you to add a custom require_relative at the top of the formula
-    # template.
-    # Default is empty
-    custom_require: custom_download_strategy
 
     # Git author used to commit to the repository.
     # Defaults are shown.
