@@ -1,0 +1,65 @@
+# # This is an example .goreleaser.yml file with some sensible defaults.
+# # Make sure to check the documentation at https://goreleaser.com
+# before:
+#   hooks:
+#     # You may remove this if you don't use go modules.
+#     - go mod tidy
+#     # you may remove this if you don't need go generate
+#     - go generate ./...
+
+builds:
+  - id: "mldev"
+    dir: ./mldev
+    binary: mldev
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    skip: false
+
+
+# .goreleaser.yaml
+archives:
+  - id: mldev
+    format: tar.gz
+    builds:
+    - mldev
+    name_template: >-
+      mldev_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+    - goos: windows
+      format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+release:
+  # Repo in which the release will be created.
+  # Default is extracted from the origin remote URL or empty if its private hosted.
+  github:
+    owner: sbhrule15
+    name: brew
+
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  # Default is false.
+  prerelease: auto
+
+  # You can change the name of the release.
+  # Default is `{{.Tag}}` on OSS and `{{.PrefixedTag}}` on Pro.
+  name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
