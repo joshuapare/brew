@@ -65,3 +65,39 @@ release:
   # You can change the name of the release.
   # Default is `{{.Tag}}` on OSS and `{{.PrefixedTag}}` on Pro.
   name_template: "mldev-v{{.Version}}"
+
+brews:
+  - name: mldev
+    ids:
+    - mldev
+    tap:
+      owner: sbhrule15
+      name: brew
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    url_template: "https://github.com/sbhrule15/brew/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+
+    # Allows you to set a custom download strategy. Note that you'll need
+    # to implement the strategy and add it to your tap repository.
+    # Example: https://docs.brew.sh/Formula-Cookbook#specifying-the-download-strategy-explicitly
+    # Default is empty.
+    download_strategy: CurlDownloadStrategy
+
+    # Allows you to add a custom require_relative at the top of the formula
+    # template.
+    # Default is empty
+    custom_require: custom_download_strategy
+
+    # Git author used to commit to the repository.
+    # Defaults are shown.
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    folder: Formula
+    homepage: "https://mosaiclearning.com/"
+    description: "Tools for Mosaic Learning developers and engineers."
+    # Packages your package depends on.
+    dependencies:
+      - name: git
+      - name: mkcert
